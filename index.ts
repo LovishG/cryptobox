@@ -1,19 +1,20 @@
 // @ts-nocheck
 
-let str = "hi all I am";
-let key = 2;
-let arr = str.split("");
+let str = "Default String";
+let key = 2; // default String for testing purpose
+let arr;
+// arr = str.split("");
 let encryptedStr;
 let spaceIndex = [];
 let unencryptedStr = "default";
 let deStr = "";
 let indexOfUndefined = [];
-let encryptedStr_Without_undefined;
+let encryptedStringWithoutUndefined;
 let arr2dRowCount;
-let encrypted = 0;
+let encrypted = false;
 
 //getting user values on clicking encrypt button
-document.querySelector(".en").addEventListener("click", function () {
+document.querySelector(".encrypt-button").addEventListener("click", function () {
   str = document.querySelector(".en-text").value;
   // console.log(str);
   key = document.querySelector(".key").value;
@@ -39,30 +40,30 @@ document.querySelector(".en").addEventListener("click", function () {
     // converting 1d array of individual characters to 2d Array
     let arr2D = sliceIntoChunks(strNoSpaceArr, key);
     arr2dRowCount = arr2D.length;
-    console.log("row count is >>>>", arr2dRowCount);
+    //console.log("row count is >>>>", arr2dRowCount);
     //getting the encrypted String on passing 2d Arr to function encryption
     encryptedStr = encryption(arr2D);
 
     //splitting encrypted string for undefined
-    encryptedStr_Without_undefined = encryptedStr.split("undefined").join("");
+    encryptedStringWithoutUndefined = encryptedStr.split("undefined").join("");
 
-    console.log(arr, spaceIndex, strNoSpace, strNoSpaceArr);
-    console.log(arr2D);
-    console.log(encryptedStr);
-    console.log(encryptedStr_Without_undefined);
+    // console.log(arr, spaceIndex, strNoSpace, strNoSpaceArr);
+    // console.log(arr2D);
+    // console.log(encryptedStr);
+    // console.log(encryptedStringWithoutUndefined);
 
     //display encrypted text
     let dispaly = document.querySelector("p");
-    dispaly.innerText = encryptedStr_Without_undefined;
+    dispaly.innerText = encryptedStringWithoutUndefined;
     dispaly.style.display = "flex";
 
-    encrypted = 1;
+    encrypted = true;
   }
 });
 
 // starting decryption when decrypt button is clicked
-document.querySelector(".de").addEventListener("click", function () {
-  if (encrypted === 1) {
+document.querySelector(".decrypt-button").addEventListener("click", function () {
+  if (encrypted === true) {
     //spliting the encrypted str to 1D array
     let enStrArr = encryptedStr.split("undefined");
     for (let i = 0; i < enStrArr.length; i++) {
@@ -71,15 +72,15 @@ document.querySelector(".de").addEventListener("click", function () {
     enStrArr = enStrArr.join("").split("");
     // converting 1d arr to 2D array
     let enArr2D = sliceIntoChunks(enStrArr, arr2dRowCount);
-    console.log(enArr2D);
+    //console.log(enArr2D);
     //decrypting the string
     deStr = decryption(enArr2D);
-    console.log(deStr);
+    //console.log(deStr);
 
     // spltiing decrypted string to 1d array of individual characters
     let deStrArr : any = [];
     deStrArr = deStr.split("");
-    console.log(deStrArr);
+    //console.log(deStrArr);
     // adding spaces
     for (let i = 0; i < spaceIndex.length; i++) {
       let idx = spaceIndex[i];
@@ -88,13 +89,13 @@ document.querySelector(".de").addEventListener("click", function () {
 
     spaceIndex = [];
     unencryptedStr = deStrArr.join("");
-    console.log(unencryptedStr);
+    //console.log(unencryptedStr);
 
     let dispaly = document.querySelector("p");
     dispaly.innerText = unencryptedStr;
     dispaly.style.display = "flex";
 
-    encrypted = 0;
+    encrypted = false;
 
     //clear form
     document.querySelector("form") .reset();
