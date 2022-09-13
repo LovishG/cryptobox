@@ -19,13 +19,13 @@ document.querySelector(".encrypt-button").addEventListener("click", function () 
                 spaceIndex.push(index);
             }
         }
-        let strNoSpace = str.split(" ").join("");
-        let strNoSpaceArr = strNoSpace.split("");
-        let arr2D = sliceIntoChunks(strNoSpaceArr, key);
+        const strNoSpace = str.split(" ").join("");
+        const strNoSpaceArr = strNoSpace.split("");
+        const arr2D = sliceIntoChunks(strNoSpaceArr, key);
         arr2dRowCount = arr2D.length;
         encryptedStr = encryption(arr2D);
         encryptedStringWithoutUndefined = encryptedStr.split("undefined").join("");
-        let dispaly = document.querySelector("p");
+        const dispaly = document.querySelector("p");
         dispaly.innerText = encryptedStringWithoutUndefined;
         dispaly.style.display = "flex";
         encrypted = true;
@@ -38,7 +38,7 @@ document.querySelector(".decrypt-button").addEventListener("click", function () 
             enStrArr[i] += "~";
         }
         enStrArr = enStrArr.join("").split("");
-        let enArr2D = sliceIntoChunks(enStrArr, arr2dRowCount);
+        const enArr2D = sliceIntoChunks(enStrArr, arr2dRowCount);
         deStr = decryption(enArr2D);
         let deStrArr = [];
         deStrArr = deStr.split("");
@@ -48,7 +48,7 @@ document.querySelector(".decrypt-button").addEventListener("click", function () 
         }
         spaceIndex = [];
         unencryptedStr = deStrArr.join("");
-        let dispaly = document.querySelector("p");
+        const dispaly = document.querySelector("p");
         dispaly.innerText = unencryptedStr;
         dispaly.style.display = "flex";
         encrypted = false;
