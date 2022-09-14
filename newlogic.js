@@ -1,52 +1,52 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     localStorage.clear();
     let inputString = "";
     let key = "";
     function getInput() {
-        let userInput = document.getElementById('inputString');
-        let userKey = document.getElementById('key');
+        let userInput = (document.getElementById("inputString"));
+        let userKey = (document.getElementById("key"));
         if (userInput.value !== "" || userKey.value !== "") {
             localStorage.setItem("input", userInput.value);
             localStorage.setItem("key", userKey.value);
         }
         userInput.value = "";
         userKey.value = "";
-        inputString = localStorage.getItem('input');
-        key = localStorage.getItem('key');
+        inputString = localStorage.getItem("input");
+        key = localStorage.getItem("key");
     }
-    let encryptButton = document.getElementById('encrypt');
-    let decryptButton = document.getElementById('decrypt');
-    encryptButton.addEventListener('click', () => {
+    let encryptButton = (document.getElementById("encrypt"));
+    let decryptButton = (document.getElementById("decrypt"));
+    encryptButton.addEventListener("click", () => {
         getInput();
         if (!inputString || !key)
             return;
         let output = encryptString2(inputString, parseInt(key));
-        let outputElement = document.querySelector('p');
-        outputElement.style.display = 'flex';
+        let outputElement = (document.querySelector("p"));
+        outputElement.style.display = "flex";
         outputElement.innerText = output;
         localStorage.setItem("input", output);
         localStorage.setItem("key", key);
     });
-    decryptButton.addEventListener('click', () => {
+    decryptButton.addEventListener("click", () => {
         getInput();
         if (!inputString || !key)
             return;
         let output = decryptString2(inputString, parseInt(key));
-        let outputElement = document.getElementById('output');
-        outputElement.style.display = 'flex';
+        let outputElement = (document.getElementById("output"));
         outputElement.innerHTML = output;
+        outputElement.style.display = "flex";
         localStorage.setItem("input", output);
         localStorage.setItem("key", key);
     });
     function encryptString2(input, key) {
         let spaceIndex = [];
         for (let i = 0; i < input.length; i++) {
-            if (input.charAt(i) === ' ')
+            if (input.charAt(i) === " ")
                 spaceIndex.push(i);
         }
         let spaceInfo = spaceIndex.join("-");
         spaceInfo = btoa(spaceInfo);
-        input = input.replace(/ /g, '');
+        input = input.replace(/ /g, "");
         let matrix = [];
         let i = 0;
         let l = input.length;
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return result;
     }
     function decryptString2(inputStr, key) {
-        let splitIdx = inputStr.lastIndexOf('|');
+        let splitIdx = inputStr.lastIndexOf("|");
         let input = inputStr.substring(0, splitIdx);
         let spaceInfo = inputStr.substring(splitIdx + 1);
         console.log(input);
