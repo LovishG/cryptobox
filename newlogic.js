@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         let output = decryptString2(inputString, parseInt(key));
         let outputElement = document.getElementById('output');
+        outputElement.style.display = 'flex';
         outputElement.innerHTML = output;
         localStorage.setItem("input", output);
         localStorage.setItem("key", key);
@@ -130,72 +131,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         newResult += result.substring(prevIdx);
         return newResult;
-    }
-    function encryptString(input, key) {
-        let matrix = [];
-        let i = 0;
-        let l = input.length;
-        while (i < l) {
-            let arr = [];
-            for (let j = 0; j < key; j++) {
-                if (i == l)
-                    break;
-                arr.push(input.charAt(i));
-                i++;
-            }
-            matrix.push(arr);
-        }
-        let result = "";
-        for (let j = 0; j < key; j++) {
-            for (let i = 0; i < matrix.length; i++) {
-                if (j >= matrix[i].length)
-                    break;
-                result += matrix[i][j];
-            }
-        }
-        return result;
-    }
-    function oneTimeDecrypt() {
-        let result = localStorage.getItem("previousString");
-        if (result == null)
-            return "";
-        return result;
-    }
-    function decryptString(input, key) {
-        let newkey = Math.floor(input.length / key);
-        let rem = input.length % key;
-        let matrix = [];
-        let i = 0;
-        let l = input.length;
-        let x = 0;
-        if (rem > 0)
-            x = 1;
-        while (i < l) {
-            let arr = [];
-            for (let j = 0; j < newkey + x; j++) {
-                if (i == l)
-                    break;
-                arr.push(input.charAt(i));
-                i++;
-            }
-            if (rem > 0)
-                rem--;
-            if (rem <= 0)
-                x = 0;
-            matrix.push(arr);
-        }
-        rem = input.length % key;
-        x = 0;
-        if (rem > 0)
-            x = 1;
-        let result = "";
-        for (let j = 0; j < newkey + x; j++) {
-            for (let i = 0; i < matrix.length; i++) {
-                if (j >= matrix[i].length)
-                    break;
-                result += matrix[i][j];
-            }
-        }
-        return result;
     }
 });
