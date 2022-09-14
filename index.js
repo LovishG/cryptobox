@@ -12,20 +12,20 @@ let encrypted = false;
 document.querySelector(".encrypt-button").addEventListener("click", function () {
     str = document.querySelector(".en-text").value;
     key = document.querySelector(".key").value;
-    if (str !== "") {
+    if (str !== "" && encrypted == false) {
         arr = str.split("");
         for (let index = 0; index < arr.length; index++) {
             if (arr[index] === " ") {
                 spaceIndex.push(index);
             }
         }
-        const strNoSpace = str.split(" ").join("");
-        const strNoSpaceArr = strNoSpace.split("");
-        const arr2D = sliceIntoChunks(strNoSpaceArr, key);
+        let strNoSpace = str.split(" ").join("");
+        let strNoSpaceArr = strNoSpace.split("");
+        let arr2D = sliceIntoChunks(strNoSpaceArr, key);
         arr2dRowCount = arr2D.length;
         encryptedStr = encryption(arr2D);
         encryptedStringWithoutUndefined = encryptedStr.split("undefined").join("");
-        const dispaly = document.querySelector("p");
+        let dispaly = document.querySelector("p");
         dispaly.innerText = encryptedStringWithoutUndefined;
         dispaly.style.display = "flex";
         encrypted = true;
@@ -38,7 +38,7 @@ document.querySelector(".decrypt-button").addEventListener("click", function () 
             enStrArr[i] += "~";
         }
         enStrArr = enStrArr.join("").split("");
-        const enArr2D = sliceIntoChunks(enStrArr, arr2dRowCount);
+        let enArr2D = sliceIntoChunks(enStrArr, arr2dRowCount);
         deStr = decryption(enArr2D);
         let deStrArr = [];
         deStrArr = deStr.split("");
@@ -48,7 +48,7 @@ document.querySelector(".decrypt-button").addEventListener("click", function () 
         }
         spaceIndex = [];
         unencryptedStr = deStrArr.join("");
-        const dispaly = document.querySelector("p");
+        let dispaly = document.querySelector("p");
         dispaly.innerText = unencryptedStr;
         dispaly.style.display = "flex";
         encrypted = false;

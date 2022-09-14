@@ -20,7 +20,7 @@ document.querySelector(".encrypt-button").addEventListener("click", function () 
   key = document.querySelector(".key").value;
   // console.log(key);
 
-  if (str !== "") {
+  if (str !== "" && encrypted == false) {
     //spliting string to array of individual characters
     arr = str.split("");
 
